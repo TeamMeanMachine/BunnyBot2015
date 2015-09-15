@@ -1,5 +1,7 @@
 package org.usfirst.frc.team2471.robot.commands;
 
+import org.usfirst.frc.team2471.robot.Robot;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 public class DriveLoop extends Command{
@@ -13,6 +15,9 @@ public class DriveLoop extends Command{
 	@Override
 	protected void execute() {
 		// TODO Auto-generated method stub
+		
+		double x = Robot.oi.driverStick.getRawAxis(0);
+		double y = Robot.oi.driverStick.getRawAxis(1);
 		
 	}
 

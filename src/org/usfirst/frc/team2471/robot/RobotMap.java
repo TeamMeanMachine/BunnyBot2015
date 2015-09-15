@@ -1,5 +1,7 @@
 package org.usfirst.frc.team2471.robot;
 
+import org.usfirst.frc.team2471.robot.subsystems.Drive;
+
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.Solenoid;
 
@@ -33,6 +35,8 @@ public class RobotMap {
 	
 	public static Solenoid rShifter;
 	public static Solenoid rPTO;
+
+	public static Drive drive;
 	
 	
 	public static void init (){
@@ -49,6 +53,8 @@ public class RobotMap {
 		
 		rShifter = new Solenoid(2);
 		rPTO = new Solenoid(3);
+		
+		drive = new Drive();
 		
 	}
 }

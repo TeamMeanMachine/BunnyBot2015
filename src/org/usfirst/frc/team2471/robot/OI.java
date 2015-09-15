@@ -1,6 +1,9 @@
 package org.usfirst.frc.team2471.robot;
 
+import org.usfirst.frc.team2471.robot.commands.DriveLoop;
+
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -36,10 +39,15 @@ public class OI {
 	
 	public static Joystick driverStick;
 	public static Joystick coStick;
+	public static JoystickButton shift;
 	
 	public OI(){
 		driverStick = new Joystick(0);
 		coStick = new Joystick(1);
+		
+		shift = new JoystickButton(driverStick, 1);
+		
+		// example shift.whenPressed(new DriveLoop());
 	}
 }
 
