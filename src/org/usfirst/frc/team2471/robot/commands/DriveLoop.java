@@ -9,10 +9,12 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class DriveLoop extends Command{
 	
+	public int gear;
+	
 	@Override
 	protected void initialize() {
 		// TODO Auto-generated method stub
-		
+		gear = 0;
 	}
 
 	@Override
@@ -21,24 +23,34 @@ public class DriveLoop extends Command{
 		
 		double x = Robot.oi.driverStick.getRawAxis(0);
 		double y = Robot.oi.driverStick.getRawAxis(1);
-		Robot.oi.driverStick.getAxis(Joystick.AxisType.kX);
 		
+		if (x <= .05){
+			x = 0;
+		}else if(y <= 0.05){
+			y = 0;
+		}
+		
+		if ((gear == 0 && x > .5)){
+			gear++;
+			RobotMap.lShifter.set(true);
+		}else if(gear == 1 && x < .5){
+			gear--;
+			RobotMap.rShifter.set(false);
+		}
+			
 		SetSpeed(x, y);
 		
 	}
 	
 	private void SetSpeed(double forward, double right){
 		
-		if (forward > 0.1 || right > 0.1){
+		RobotMap.lDrive1.set(forward + right);
+		RobotMap.lDrive2.set(forward + right);
+		RobotMap.lDrive3.set(forward + right);
 		
-		RobotMap.lDrive1.set(forward);
-		RobotMap.lDrive2.set(forward);
-		RobotMap.lDrive3.set(forward);
-		
-		RobotMap.rDrive1.set(forward);
-		RobotMap.rDrive2.set(forward);
-		RobotMap.rDrive3.set(forward);
-		}
+		RobotMap.rDrive1.set(forward - right);
+		RobotMap.rDrive2.set(forward - right);
+		RobotMap.rDrive3.set(forward - right);
 	}
 
 	@Override

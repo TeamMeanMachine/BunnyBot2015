@@ -45,8 +45,8 @@ public class RobotMap {
 		lDrive3 = new CANTalon(2);
 		
 		rDrive1 = new CANTalon(3);
-		rDrive1 = new CANTalon(4);
-		rDrive1 = new CANTalon(5);
+		rDrive2 = new CANTalon(4);
+		rDrive3 = new CANTalon(5);
 		
 		lShifter = new Solenoid(0);
 		lPTO = new Solenoid(1);
