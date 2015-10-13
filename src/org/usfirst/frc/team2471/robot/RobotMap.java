@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2471.robot;
 
+import org.usfirst.frc.team2471.robot.commands.DriveLoop;
 import org.usfirst.frc.team2471.robot.subsystems.Drive;
 
 import edu.wpi.first.wpilibj.CANTalon;
@@ -37,7 +38,7 @@ public class RobotMap {
 	public static Solenoid rPTO;
 
 	public static Drive drive;
-	
+	public static int gear;
 	
 	public static void init (){
 		lDrive1 = new CANTalon(0); // TODO: get ids when electrical is ready

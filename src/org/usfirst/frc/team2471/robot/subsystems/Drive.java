@@ -13,13 +13,6 @@ public class Drive extends Subsystem{
 	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub
 		setDefaultCommand(new DriveLoop());
-	}
-	
-	public static void drive(double x, double y){
-		RobotMap.lDrive1.set(x);
-		RobotMap.rDrive1.set(y);
-		
-	}
-	
+	}	
 
 }

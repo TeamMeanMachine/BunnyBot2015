@@ -1,5 +1,7 @@
 package org.usfirst.frc.team2471.robot.commands;
 
+import java.awt.print.Book;
+
 import org.usfirst.frc.team2471.robot.Robot;
 import org.usfirst.frc.team2471.robot.RobotMap;
 
@@ -9,18 +11,18 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class DriveLoop extends Command{
 	
-	public int gear;
+	public int gearAP;
 	
 	@Override
 	protected void initialize() {
 		// TODO Auto-generated method stub
-		gear = 0;
+		
 	}
 
 	@Override
 	protected void execute() {
 		// TODO Auto-generated method stub
-		
+		RobotMap.gear = gearAP;
 		double x = Robot.oi.driverStick.getRawAxis(0);
 		double y = Robot.oi.driverStick.getRawAxis(1);
 		
@@ -30,17 +32,17 @@ public class DriveLoop extends Command{
 			y = 0;
 		}
 		
-		if ((gear == 0 && x > .5)){
-			gear++;
+		if ((gearAP == 0 && x > .5)){
+			gearAP++;
 			RobotMap.lShifter.set(true);
-		}else if(gear == 1 && x < .5){
-			gear--;
+		}else if(gearAP == 1 && x < .5){
+			gearAP--;
 			RobotMap.rShifter.set(false);
 		}
 			
 		SetSpeed(x, y);
-		
 	}
+	
 	
 	private void SetSpeed(double forward, double right){
 		
@@ -58,7 +60,7 @@ public class DriveLoop extends Command{
 		// TODO Auto-generated method stub
 		return false;
 	}
-
+	
 	@Override
 	protected void end() {
 		// TODO Auto-generated method stub
