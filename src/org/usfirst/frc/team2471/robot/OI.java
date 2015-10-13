@@ -40,13 +40,14 @@ public class OI {
 	public Joystick driverStick;
 	public Joystick coStick;
 	public JoystickButton shift;
+	public JoystickButton suckMe;
 	
 	public OI(){
 		driverStick = new Joystick(0);
 		coStick = new Joystick(1);
 		
 		shift = new JoystickButton(driverStick, 1);
-		
+		suckMe = new JoystickButton(coStick, 3);
 		// example shift.whenPressed(new DriveLoop());
 	}
 }

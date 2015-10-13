@@ -22,6 +22,7 @@ public class RobotMap {
     // number and the module. For example you with a rangefinder:
     // public static int rangefinderPort = 1;
     // public static int rangefinderModule = 1;
+	
 	/* -------------------- Drive Train --------------------------------*/
 	public static CANTalon lDrive1;
 	public static CANTalon lDrive2;
@@ -37,8 +38,10 @@ public class RobotMap {
 	public static Solenoid rShifter;
 	public static Solenoid rPTO;
 
-	public static Drive drive;
 	public static int gear;
+	
+/*_______________________Sucker stuff__________________________________*/
+	public static CANTalon suck1;
 	
 	public static void init (){
 		lDrive1 = new CANTalon(0); // TODO: get ids when electrical is ready
@@ -55,7 +58,7 @@ public class RobotMap {
 		rShifter = new Solenoid(2);
 		rPTO = new Solenoid(3);
 		
-		drive = new Drive();
+		suck1 = new CANTalon(6);
 		
 	}
 }
