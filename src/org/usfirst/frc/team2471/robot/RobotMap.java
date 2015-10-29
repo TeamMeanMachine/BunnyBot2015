@@ -1,9 +1,7 @@
 package org.usfirst.frc.team2471.robot;
 
-import org.usfirst.frc.team2471.robot.commands.DriveLoop;
-import org.usfirst.frc.team2471.robot.subsystems.Drive;
-
 import edu.wpi.first.wpilibj.CANTalon;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
 
 /**
@@ -40,10 +38,20 @@ public class RobotMap {
 
 	public static int gear;
 	
+	
+	
 /*_______________________Sucker stuff__________________________________*/
-	public static CANTalon suck1;
+	public static CANTalon ftop;
+	public static CANTalon fbottom;
+	
+	public static Solenoid fextend;
+	
+	public static DigitalInput ltop;
+	public static DigitalInput lbottom;
 	
 	public static void init (){
+		
+		//Drivetrain
 		lDrive1 = new CANTalon(0); // TODO: get ids when electrical is ready
 		lDrive2 = new CANTalon(1);
 		lDrive3 = new CANTalon(2);
@@ -58,7 +66,12 @@ public class RobotMap {
 		rShifter = new Solenoid(2);
 		rPTO = new Solenoid(3);
 		
-		suck1 = new CANTalon(6);
+		//Intake/Outtake
+		fbottom = new CANTalon(7);
+		ftop = new CANTalon(8);
+		fextend = new Solenoid(2);
+		ltop = new DigitalInput(0);
+		lbottom = new DigitalInput(1);
 		
 	}
 }

@@ -17,26 +17,25 @@ public class SuckUp extends Command{
 	@Override
 	protected void execute() {
 		// TODO Auto-generated method stub
-		Sucker.suckIt(Robot.oi.suckMe.get());
+		Sucker.suckup(Robot.oi.driverStick.getRawAxis(0));
 	}
 
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
-		
 		return false;
 	}
 
 	@Override
 	protected void end() {
 		// TODO Auto-generated method stub
-		RobotMap.suck1.set(0);
+		Sucker.suckup(0);
 	}
 
 	@Override
 	protected void interrupted() {
 		// TODO Auto-generated method stub
-		RobotMap.suck1.set(0);
+		Sucker.suckup(0);
 	}
 
 }
