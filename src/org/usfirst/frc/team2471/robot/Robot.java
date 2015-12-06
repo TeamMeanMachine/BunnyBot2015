@@ -1,9 +1,8 @@
 
 package org.usfirst.frc.team2471.robot;
 
-import org.usfirst.frc.team2471.robot.commands.ExampleCommand;
+
 import org.usfirst.frc.team2471.robot.subsystems.Drive;
-import org.usfirst.frc.team2471.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team2471.robot.subsystems.Sucker;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -20,7 +19,6 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
  */
 public class Robot extends IterativeRobot {
 
-	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
 	public static OI oi;
 	public static Drive drive;
 	public static Sucker sucker;
@@ -33,11 +31,10 @@ public class Robot extends IterativeRobot {
      */
     public void robotInit() {
     	RobotMap.init();
-		oi = new OI();
 		drive = new Drive();
 		sucker = new Sucker();
+		oi = new OI();
         // instantiate the command used for the autonomous period
-        autonomousCommand = new ExampleCommand();
     }
 	
 	public void disabledPeriodic() {

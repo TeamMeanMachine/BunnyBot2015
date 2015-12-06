@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2471.robot.subsystems;
 
 import org.usfirst.frc.team2471.robot.RobotMap;
+import org.usfirst.frc.team2471.robot.commands.SuckUp;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -9,19 +10,30 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Sucker extends Subsystem{
 	
-	public static CANTalon ftop = RobotMap.ftop;
-	public static CANTalon fbottom = RobotMap.fbottom;
-	public DigitalInput ltop = RobotMap.ltop;
-	public DigitalInput lbottom = RobotMap.lbottom;
-	public Solenoid fextend = RobotMap.fextend;
+	public static CANTalon ftop;
+	public static CANTalon fbottom;
+	public DigitalInput ltop;
+	public DigitalInput lbottom;
+	public Solenoid fextend;
+	
+
+	public Sucker(){
+		fextend = RobotMap.fextend;
+		lbottom = RobotMap.lbottom;
+		ltop = RobotMap.ltop;
+		fbottom = RobotMap.fbottom;
+		ftop = RobotMap.ftop;
+	}
 	
 	@Override
 	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub
+		//setDefaultCommand(new SuckUp());
 	}
+	
 											
-	public static void suckup(double power){
+	public void suckup(double power){
 		ftop.set(power);
-		fbottom.set(power);
+		fbottom.set(-power);
 	}
 }
