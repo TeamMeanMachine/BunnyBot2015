@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2471.robot;
 
 import org.usfirst.frc.team2471.robot.commands.DriveLoop;
+import org.usfirst.frc.team2471.robot.commands.SuckUp;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -48,6 +49,8 @@ public class OI {
 		
 		shift = new JoystickButton(driverStick, 1);
 		suckMe = new JoystickButton(coStick, 3);
+		
+		suckMe.whileHeld(new SuckUp());
 		// example shift.whenPressed(new DriveLoop());
 	}
 }

@@ -13,10 +13,13 @@ public class DriveLoop extends Command{
 	
 	public int gearAP;
 	
+	public DriveLoop(){
+		requires(Robot.drive);
+	}
+	
 	@Override
 	protected void initialize() {
 		// TODO Auto-generated method stub
-		requires(Robot.drive);
 	}
 
 	@Override
