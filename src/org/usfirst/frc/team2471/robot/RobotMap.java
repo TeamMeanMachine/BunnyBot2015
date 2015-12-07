@@ -23,17 +23,16 @@ public class RobotMap {
 	
 	/* -------------------- Drive Train --------------------------------*/
 	public static CANTalon lDrive1;
+	public static CANTalon lDriveMiddle;
 	public static CANTalon lDrive2;
-	public static CANTalon lDrive3;
 	
 	public static CANTalon rDrive1;
+	public static CANTalon rDriveMiddle;
 	public static CANTalon rDrive2;
-	public static CANTalon rDrive3;
 	
-	public static Solenoid lShifter;
+	public static Solenoid shifter;
+	
 	public static Solenoid lPTO;
-	
-	public static Solenoid rShifter;
 	public static Solenoid rPTO;
 
 	public static int gear;
@@ -53,17 +52,18 @@ public class RobotMap {
 		
 		//Drivetrain
 		lDrive1 = new CANTalon(0); // TODO: get ids when electrical is ready
-		lDrive2 = new CANTalon(1);
-		lDrive3 = new CANTalon(2);
+		lDriveMiddle = new CANTalon(1);
+		lDrive2 = new CANTalon(2);
 		
 		rDrive1 = new CANTalon(3);
-		rDrive2 = new CANTalon(4);
-		rDrive3 = new CANTalon(5);
+		rDriveMiddle = new CANTalon(4);
+		rDrive2 = new CANTalon(5);
 		
-		lShifter = new Solenoid(0);
+		shifter = new Solenoid(0);
+		
+		gear = 0;
+		
 		lPTO = new Solenoid(1);
-		
-		rShifter = new Solenoid(2);
 		rPTO = new Solenoid(3);
 		
 		//Intake/Outtake

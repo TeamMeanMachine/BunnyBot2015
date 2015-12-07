@@ -10,35 +10,33 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Drive extends Subsystem{
 	
 	public static CANTalon lDrive1;
+	public static CANTalon lDriveMiddle;
 	public static CANTalon lDrive2;
-	public static CANTalon lDrive3;
 	
 	public static CANTalon rDrive1;
+	public static CANTalon rDriveMiddle;
 	public static CANTalon rDrive2;
-	public static CANTalon rDrive3;
 	
-	public static Solenoid lShifter;
+	public static Solenoid shifter;
+	
 	public static Solenoid lPTO;
-	
-	public static Solenoid rShifter;
 	public static Solenoid rPTO;
 	
 	public static int gearAP;
 	
 	public Drive(){
 		lDrive1 = RobotMap.lDrive1;
+		lDriveMiddle = RobotMap.lDriveMiddle;
 		lDrive2 = RobotMap.lDrive2;
-		lDrive3 = RobotMap.lDrive3;
 		
-		rDrive1 = RobotMap.lDrive1;
-		rDrive2 = RobotMap.lDrive2;
-		rDrive3 = RobotMap.lDrive3;
+		rDrive1 = RobotMap.rDrive1;
+		rDriveMiddle = RobotMap.rDriveMiddle;
+		rDrive2 = RobotMap.rDrive2;
 		
 		lPTO = RobotMap.lPTO;
 		rPTO = RobotMap.rPTO;
 		
-		rShifter = RobotMap.rShifter;
-		lShifter = RobotMap.lShifter;
+		shifter = RobotMap.shifter;
 		
 		gearAP = RobotMap.gear;
 	}
@@ -58,10 +56,10 @@ public class Drive extends Subsystem{
 		
 		if ((gearAP == 0 && x > .5)){
 			gearAP++;
-			RobotMap.lShifter.set(true);
+			shifter.set(true);
 		}else if(gearAP == 1 && x < .5){
 			gearAP--;
-			RobotMap.rShifter.set(false);
+			shifter.set(false);
 		}
 			
 		SetSpeed(x, y);
@@ -69,13 +67,20 @@ public class Drive extends Subsystem{
 	
 	private void SetSpeed(double forward, double right){
 		
-		RobotMap.lDrive1.set(forward + right);
-		RobotMap.lDrive2.set(forward + right);
-		RobotMap.lDrive3.set(forward + right);
+		lDrive1.set(forward);
+		lDriveMiddle.set(forward);
+		lDrive2.set(forward);
+		rDrive1.set(-forward);
+		rDriveMiddle.set(-forward);
+		rDrive2.set(-forward);
 		
-		RobotMap.rDrive1.set(forward - right);
-		RobotMap.rDrive2.set(forward - right);
-		RobotMap.rDrive3.set(forward - right);
+		/*lDrive1.set((forward + right)*.5);
+		lDriveMiddle.set((forward + right)*.5);
+		lDrive2.set((forward + right)*.5);
+		
+		rDrive1.set(-(forward - right)*.5);
+		rDriveMiddle.set(-(forward - right)*.5);
+		rDrive2.set(-(forward - right)*.5);*/
 	}
 
 }

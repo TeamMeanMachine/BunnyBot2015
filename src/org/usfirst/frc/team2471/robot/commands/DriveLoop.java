@@ -25,8 +25,8 @@ public class DriveLoop extends Command{
 	@Override
 	protected void execute() {
 		// TODO Auto-generated method stub
-		double x = Robot.oi.driverStick.getRawAxis(0);
-		double y = Robot.oi.driverStick.getRawAxis(1);
+		double x = Robot.oi.driverStick.getRawAxis(1);
+		double y = Robot.oi.driverStick.getRawAxis(5);
 		
 		Robot.drive.driveplz(x, y);
 	}
