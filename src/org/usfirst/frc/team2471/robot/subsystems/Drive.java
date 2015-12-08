@@ -48,16 +48,16 @@ public class Drive extends Subsystem{
 	}
 	
 	public void driveplz(double x, double y){
-		if (x <= .05){
+		if (x <= .1 && x >= -.1){
 			x = 0;
-		}else if(y <= 0.05){
+		}else if(y <= 0.1 && x >= -.1){
 			y = 0;
 		}
 		
-		if ((gearAP == 0 && x > .5)){
+		if (((gearAP == 0 && x > .5)/* || (gearAP == 0 && x < -.5)*/)){
 			gearAP++;
 			shifter.set(true);
-		}else if(gearAP == 1 && x < .5){
+		}else if((gearAP == 1 && x < .5)/*|| (gearAP == 1 && x > -.5)*/){
 			gearAP--;
 			shifter.set(false);
 		}
@@ -67,20 +67,13 @@ public class Drive extends Subsystem{
 	
 	private void SetSpeed(double forward, double right){
 		
-		lDrive1.set(forward);
-		lDriveMiddle.set(forward);
-		lDrive2.set(forward);
-		rDrive1.set(-forward);
-		rDriveMiddle.set(-forward);
-		rDrive2.set(-forward);
+		lDrive1.set(-(forward - right));
+		lDriveMiddle.set(-(forward - right));
+		lDrive2.set(-(forward - right));
 		
-		/*lDrive1.set((forward + right)*.5);
-		lDriveMiddle.set((forward + right)*.5);
-		lDrive2.set((forward + right)*.5);
-		
-		rDrive1.set(-(forward - right)*.5);
-		rDriveMiddle.set(-(forward - right)*.5);
-		rDrive2.set(-(forward - right)*.5);*/
+		rDrive1.set((forward + right));
+		rDriveMiddle.set((forward + right));
+		rDrive2.set((forward + right));
 	}
 
 }
