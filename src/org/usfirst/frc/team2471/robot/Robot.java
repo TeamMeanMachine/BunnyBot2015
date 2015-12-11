@@ -39,6 +39,13 @@ public class Robot extends IterativeRobot {
 	
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+		
+		System.out.println("Right Encoder: " + RobotMap.rightE.get());
+		System.out.println("Left Encoder: " + RobotMap.leftE.get());
+		System.out.println("Limit Top: " + RobotMap.ltop.get());
+		System.out.println("Limit Bot: " + RobotMap.lbottom.get());
+		
+		
 	}
 
     public void autonomousInit() {

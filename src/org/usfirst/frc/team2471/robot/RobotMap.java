@@ -1,7 +1,9 @@
 package org.usfirst.frc.team2471.robot;
 
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Solenoid;
 
 /**
@@ -25,10 +27,12 @@ public class RobotMap {
 	public static CANTalon lDrive1;
 	public static CANTalon lDriveMiddle;
 	public static CANTalon lDrive2;
+	public static Encoder leftE;
 	
 	public static CANTalon rDrive1;
 	public static CANTalon rDriveMiddle;
 	public static CANTalon rDrive2;
+	public static Encoder rightE;
 	
 	public static Solenoid shifter;
 	
@@ -42,6 +46,7 @@ public class RobotMap {
 /*_______________________Sucker stuff__________________________________*/
 	public static CANTalon ftop;
 	public static CANTalon fbottom;
+	public static CANTalon orbital;
 	
 	public static Solenoid fextend;
 	
@@ -54,24 +59,24 @@ public class RobotMap {
 		lDrive1 = new CANTalon(0); // TODO: get ids when electrical is ready
 		lDriveMiddle = new CANTalon(1);
 		lDrive2 = new CANTalon(2);
+		leftE = new Encoder(0, 1);
 		
 		rDrive1 = new CANTalon(3);
 		rDriveMiddle = new CANTalon(4);
 		rDrive2 = new CANTalon(5);
+		rightE = new Encoder(2, 3);
 		
 		shifter = new Solenoid(0);
 		
 		gear = 0;
 		
-		lPTO = new Solenoid(1);
-		rPTO = new Solenoid(3);
-		
 		//Intake/Outtake
-		fbottom = new CANTalon(7);
-		ftop = new CANTalon(8);
-		fextend = new Solenoid(2);
-		ltop = new DigitalInput(0);
-		lbottom = new DigitalInput(1);
+		fbottom = new CANTalon(6);
+		ftop = new CANTalon(7);
+		orbital = new CANTalon(8);
+		fextend = new Solenoid(1);
+		ltop = new DigitalInput(4);
+		lbottom = new DigitalInput(5);
 		
 	}
 }

@@ -12,6 +12,7 @@ public class Sucker extends Subsystem{
 	
 	public static CANTalon ftop;
 	public static CANTalon fbottom;
+	public CANTalon orbital;
 	public DigitalInput ltop;
 	public DigitalInput lbottom;
 	public Solenoid fextend;
@@ -23,6 +24,7 @@ public class Sucker extends Subsystem{
 		ltop = RobotMap.ltop;
 		fbottom = RobotMap.fbottom;
 		ftop = RobotMap.ftop;
+		orbital = RobotMap.orbital;
 	}
 	
 	@Override
@@ -33,7 +35,24 @@ public class Sucker extends Subsystem{
 	
 											
 	public void suckup(double power){
-		ftop.set(power);
 		fbottom.set(-power);
+	}
+	
+	public void topExtension(boolean direction){
+		//false = in ; true = out
+		fextend.set(direction);
+	}
+	
+	public void orbitalUp(){
+		while(ltop.get() == false){
+			orbital.set(-0.5);
+		}
+		orbital.set(0.0);
+	}
+	
+	public void orbitalDown(){
+		while(lbottom.get() == false){
+			orbital.set(0.5);
+		}
 	}
 }

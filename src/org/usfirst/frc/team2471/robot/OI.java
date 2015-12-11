@@ -1,6 +1,8 @@
 package org.usfirst.frc.team2471.robot;
 
-import org.usfirst.frc.team2471.robot.commands.DriveLoop;
+import org.usfirst.frc.team2471.robot.commands.SpitDown;
+import org.usfirst.frc.team2471.robot.commands.SpitMiddle;
+import org.usfirst.frc.team2471.robot.commands.SpitUp;
 import org.usfirst.frc.team2471.robot.commands.SuckUp;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -42,15 +44,24 @@ public class OI {
 	public Joystick coStick;
 	public JoystickButton shift;
 	public JoystickButton suckMe;
+	public JoystickButton sTop;
+	public JoystickButton sMid;
+	public JoystickButton sBot;
 	
 	public OI(){
 		driverStick = new Joystick(0);
 		coStick = new Joystick(1);
 		
 		shift = new JoystickButton(driverStick, 1);
-		suckMe = new JoystickButton(coStick, 3);
+		suckMe = new JoystickButton(coStick, 1);
+		sTop = new JoystickButton(coStick, 2);
+		sMid = new JoystickButton(coStick, 3);
+		sBot = new JoystickButton(coStick, 4);
 		
 		suckMe.whileHeld(new SuckUp());
+		sTop.whileHeld(new SpitUp());
+		sMid.whileHeld(new SpitMiddle());
+		sBot.whileHeld(new SpitDown());
 		// example shift.whenPressed(new DriveLoop());
 	}
 }
