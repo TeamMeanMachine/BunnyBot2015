@@ -22,7 +22,7 @@ public class SuckUp extends Command{
 	@Override
 	protected void execute() {
 		// TODO Auto-generated method stub
-		Robot.sucker.suckup(.75);
+		Robot.sucker.suckup(-.5, 0);
 	}
 
 	@Override
@@ -34,14 +34,14 @@ public class SuckUp extends Command{
 	@Override
 	protected void end() {
 		// TODO Auto-generated method stub
-		Robot.sucker.suckup(0.0);
+		Robot.sucker.suckup(0.0, 0.0);
 		Robot.sucker.topExtension(true);
 	}
 
 	@Override
 	protected void interrupted() {
 		// TODO Auto-generated method stub
-		Robot.sucker.suckup(0.0);
+		Robot.sucker.suckup(0.0, 0.0);
 		Robot.sucker.topExtension(true);
 	}
 

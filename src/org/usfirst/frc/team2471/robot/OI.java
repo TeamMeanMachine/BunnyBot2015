@@ -55,8 +55,8 @@ public class OI {
 		shift = new JoystickButton(driverStick, 1);
 		suckMe = new JoystickButton(coStick, 1);
 		sTop = new JoystickButton(coStick, 2);
-		sMid = new JoystickButton(coStick, 3);
-		sBot = new JoystickButton(coStick, 4);
+		sMid = new JoystickButton(coStick, 4);
+		sBot = new JoystickButton(coStick, 3);
 		
 		suckMe.whileHeld(new SuckUp());
 		sTop.whileHeld(new SpitUp());

@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -40,11 +41,15 @@ public class Robot extends IterativeRobot {
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 		
-		System.out.println("Right Encoder: " + RobotMap.rightE.get());
+		/*System.out.println("Right Encoder: " + RobotMap.rightE.get());
 		System.out.println("Left Encoder: " + RobotMap.leftE.get());
 		System.out.println("Limit Top: " + RobotMap.ltop.get());
-		System.out.println("Limit Bot: " + RobotMap.lbottom.get());
+		System.out.println("Limit Bot: " + RobotMap.lbottom.get());*/
 		
+		SmartDashboard.putNumber("Right Encoder: ", RobotMap.rightE.get());
+        SmartDashboard.putNumber("Left Encoder: ", RobotMap.leftE.get());
+        SmartDashboard.putBoolean("Limit Top: ", RobotMap.ltop.get());
+        SmartDashboard.putBoolean("Limit Bot: ", RobotMap.lbottom.get());
 		
 	}
 
@@ -81,8 +86,13 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+        
         System.out.println("Hello world");
         
+        /*System.out.println("Right Encoder: " + RobotMap.rightE.get());
+		System.out.println("Left Encoder: " + );
+		System.out.println("Limit Top: " + );
+		System.out.println("Limit Bot: " + RobotMap.lbottom.get());*/
     }
     
     /**

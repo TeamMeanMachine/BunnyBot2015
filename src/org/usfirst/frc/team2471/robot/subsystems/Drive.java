@@ -48,16 +48,16 @@ public class Drive extends Subsystem{
 	}
 	
 	public void driveplz(double x, double y){
-		if (x <= .1 && x >= -.1){
+		/*if (x <= .1 && x >= -.1){
 			x = 0;
 		}else if(y <= 0.1 && x >= -.1){
 			y = 0;
-		}
+		}*/
 		
-		if (((gearAP == 0 && x > .5)/* || (gearAP == 0 && x < -.5)*/)){
+		if (((gearAP == 0 && x < -.5)/* || (gearAP == 0 && x < -.5)*/)){
 			gearAP++;
 			shifter.set(true);
-		}else if((gearAP == 1 && x < .5)/*|| (gearAP == 1 && x > -.5)*/){
+		}else if((gearAP == 1 && x > -.5)/* || (gearAP == 1 && x > -.5)*/){
 			gearAP--;
 			shifter.set(false);
 		}

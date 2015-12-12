@@ -34,8 +34,9 @@ public class Sucker extends Subsystem{
 	}
 	
 											
-	public void suckup(double power){
-		fbottom.set(-power);
+	public void suckup(double powerbot, double powertop){
+		fbottom.set(-powerbot);
+		ftop.set(powertop);
 	}
 	
 	public void topExtension(boolean direction){
@@ -45,14 +46,15 @@ public class Sucker extends Subsystem{
 	
 	public void orbitalUp(){
 		while(ltop.get() == false){
-			orbital.set(-0.5);
+			orbital.set(0.415);
 		}
 		orbital.set(0.0);
 	}
 	
 	public void orbitalDown(){
 		while(lbottom.get() == false){
-			orbital.set(0.5);
+			orbital.set(-0.1);
 		}
+		orbital.set(0.0);
 	}
 }
