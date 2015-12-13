@@ -4,6 +4,8 @@ import org.usfirst.frc.team2471.robot.commands.SpitDown;
 import org.usfirst.frc.team2471.robot.commands.SpitMiddle;
 import org.usfirst.frc.team2471.robot.commands.SpitUp;
 import org.usfirst.frc.team2471.robot.commands.SuckUp;
+import org.usfirst.frc.team2471.robot.commands.BunnyGrab;
+import org.usfirst.frc.team2471.robot.commands.BunnyRelease;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -47,6 +49,8 @@ public class OI {
 	public JoystickButton sTop;
 	public JoystickButton sMid;
 	public JoystickButton sBot;
+	public JoystickButton bunnyGrab;
+	public JoystickButton bunnyRelease;
 	
 	public OI(){
 		driverStick = new Joystick(0);
@@ -57,11 +61,15 @@ public class OI {
 		sTop = new JoystickButton(coStick, 2);
 		sMid = new JoystickButton(coStick, 4);
 		sBot = new JoystickButton(coStick, 3);
+		bunnyGrab = new JoystickButton (driverStick, 3);
+		bunnyRelease = new JoystickButton (driverStick, 2);		
 		
 		suckMe.whileHeld(new SuckUp());
 		sTop.whileHeld(new SpitUp());
 		sMid.whileHeld(new SpitMiddle());
 		sBot.whileHeld(new SpitDown());
+		bunnyGrab.whenPressed(new BunnyGrab());
+		bunnyRelease.whenPressed(new BunnyRelease());
 		// example shift.whenPressed(new DriveLoop());
 	}
 }
