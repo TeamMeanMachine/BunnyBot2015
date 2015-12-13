@@ -15,8 +15,9 @@ public class SuckUp extends Command{
 	@Override
 	protected void initialize() {
 		// TODO Auto-generated method stub
-		Robot.sucker.orbitalDown();
+		Robot.sucker.setOrbUpState(false);
 		Robot.sucker.topExtension(true);
+		Robot.sucker.orbitalDown();
 	}
 
 	@Override
@@ -28,12 +29,17 @@ public class SuckUp extends Command{
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
+		if (RobotMap.lbottom.get() == true){
+			Robot.sucker.orbitalOff();
+			return true;
+		}
 		return false;
 	}
 
 	@Override
 	protected void end() {
 		// TODO Auto-generated method stub
+		
 		Robot.sucker.suckup(0.0, 0.0);
 		Robot.sucker.topExtension(true);
 	}

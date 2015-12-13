@@ -74,8 +74,12 @@ public class RobotMap {
 		// Intake/Outtake
 		fbottom = new CANTalon(6);
 		ftop = new CANTalon(7);
+		
 		orbital = new CANTalon(8);
+		
 		fextend = new Solenoid(7);
+		fextend.set(true);
+		
 		ltop = new DigitalInput(4);
 		lbottom = new DigitalInput(5);
 

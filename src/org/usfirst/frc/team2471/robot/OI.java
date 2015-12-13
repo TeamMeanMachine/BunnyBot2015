@@ -1,7 +1,8 @@
 package org.usfirst.frc.team2471.robot;
 
 import org.usfirst.frc.team2471.robot.commands.SpitDown;
-import org.usfirst.frc.team2471.robot.commands.SpitMiddle;
+import org.usfirst.frc.team2471.robot.commands.SpitMiddeUp;
+import org.usfirst.frc.team2471.robot.commands.SpitUpReverse;
 import org.usfirst.frc.team2471.robot.commands.SpitUp;
 import org.usfirst.frc.team2471.robot.commands.SuckUp;
 import org.usfirst.frc.team2471.robot.commands.BunnyGrab;
@@ -51,6 +52,7 @@ public class OI {
 	public JoystickButton sBot;
 	public JoystickButton bunnyGrab;
 	public JoystickButton bunnyRelease;
+	public JoystickButton spitMiddleUp;
 	
 	public OI(){
 		driverStick = new Joystick(0);
@@ -61,13 +63,15 @@ public class OI {
 		sTop = new JoystickButton(coStick, 2);
 		sMid = new JoystickButton(coStick, 4);
 		sBot = new JoystickButton(coStick, 3);
-		bunnyGrab = new JoystickButton (driverStick, 3);
-		bunnyRelease = new JoystickButton (driverStick, 2);		
+		bunnyGrab = new JoystickButton (coStick, 5);
+		bunnyRelease = new JoystickButton (coStick, 6);		
+		spitMiddleUp = new JoystickButton(coStick, 7);
 		
 		suckMe.whileHeld(new SuckUp());
 		sTop.whileHeld(new SpitUp());
-		sMid.whileHeld(new SpitMiddle());
+		sMid.whileHeld(new SpitUpReverse());
 		sBot.whileHeld(new SpitDown());
+		spitMiddleUp.whileHeld(new SpitMiddeUp());
 		bunnyGrab.whenPressed(new BunnyGrab());
 		bunnyRelease.whenPressed(new BunnyRelease());
 		// example shift.whenPressed(new DriveLoop());

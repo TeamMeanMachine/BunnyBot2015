@@ -15,7 +15,7 @@ public class Sucker extends Subsystem{
 	public DigitalInput ltop;
 	public DigitalInput lbottom;
 	public Solenoid fextend;
-	public boolean bUp; 
+	public boolean bStayUp; 
 	
 
 	public Sucker(){
@@ -25,13 +25,13 @@ public class Sucker extends Subsystem{
 		fbottom = RobotMap.fbottom;
 		ftop = RobotMap.ftop;
 		orbital = RobotMap.orbital;
-		bUp = false;
+		bStayUp = ltop.get() == true;
 		
 	}
 	
 	@Override
 	protected void initDefaultCommand() {
-		setDefaultCommand(new StayUp());
+		//setDefaultCommand(new StayUp());
 	}
 	
 											
@@ -46,27 +46,36 @@ public class Sucker extends Subsystem{
 	}
 	
 	public void orbitalUp(){
-		while(ltop.get() == false){
-			orbital.set(0.415);
-		}
-		bUp=true;
-		orbital.set(0.0);
+		orbital.set(0.415);
+		/*bUp=true;*/
 	}
 	
-	public void orbitalDown(){
-		while(lbottom.get() == false){
-			orbital.set(-0.1);
-		}
-		orbital.set(0.0);
-		bUp=false;
-	}
-	public void orbitalStayUp(){
-		if(bUp==true && ltop.get()==false){
-			orbital.set(0.415);
-		}
-		else{
+	public void setOrbUpState(boolean up){
+		bStayUp = up;
+		if (!up) {
 			orbital.set(0.0);
 		}
 	}
+	
+	public void orbitalDown(){
+		orbital.set(-0.1);
+		/*bUp=false;*/
+	}
+	public void orbitalStayUp(){
+		if(bStayUp == true)
+		{
+			if (ltop.get() == false){
+				//orbital.set(0.415);
+			}
+			else{
+				orbital.set(0.0);
+			}
+		}
+	}
+	
+	public void orbitalOff(){
+		orbital.set(0.0);
+	}
+		
 }
 

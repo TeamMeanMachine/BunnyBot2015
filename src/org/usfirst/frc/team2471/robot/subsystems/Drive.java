@@ -50,7 +50,7 @@ public class Drive extends Subsystem{
 	class WCDLeftPIDOutput implements PIDOutput {
 		public double prevPower = 0;
 		public void pidWrite(double output){
-			prevPower -= output;
+			prevPower += output;
 			if(prevPower >=1.0 ){
 				prevPower = 1.0;
 			}
@@ -64,7 +64,7 @@ public class Drive extends Subsystem{
 	class WCDRightPIDOutput implements PIDOutput {
 		public double prevPower = 0;
 		public void pidWrite(double output){
-			prevPower -= output;
+			prevPower += output;
 			if(prevPower >=1.0 ){
 				prevPower = 1.0;
 			}
@@ -96,9 +96,12 @@ public class Drive extends Subsystem{
 		
 		if (bSpeedControl)
 		{
-			leftController = new PIDController( 0.05, 0.0, 0.005, new WCDLeftPIDSource(), wcdLeftPIDOutput);
-			rightController = new PIDController( 0.05, 0.0, 0.005, new WCDRightPIDSource(), wcdRightPIDOutput);
+			leftController = new PIDController( 0.04, 0.0, 0.02, new WCDLeftPIDSource(), wcdLeftPIDOutput);
+			rightController = new PIDController( 0.04, 0.0, 0.02, new WCDRightPIDSource(), wcdRightPIDOutput);
 			
+			SmartDashboard.putData("PID Left: ", leftController);
+			SmartDashboard.putData("PID Right: ", rightController);
+		
 			leftController.enable();
 			rightController.enable();
 		}
@@ -116,7 +119,10 @@ public class Drive extends Subsystem{
 	}
 	
 	public void driveplz(double x, double y){
-		double deadband = 0.2;
+		SmartDashboard.putNumber("Left Encoder: ", x);
+		SmartDashboard.putNumber("Right Encoder: ", y);
+		
+		double deadband = 0.05;
 		if (x <= deadband && x >= -deadband){
 			x = 0;
 		}
@@ -130,7 +136,7 @@ public class Drive extends Subsystem{
 			gearAP++;
 			shifter.set(true);
 		}
-		else if(gearAP == 1 && speed<7.5){
+		else if(gearAP == 1 && speed<7.0){
 			gearAP--;
 			shifter.set(false);
 		}
@@ -139,38 +145,41 @@ public class Drive extends Subsystem{
 		
 		System.out.println("Encoder: "+ RobotMap.leftE.getRate());
 		
-		SetSpeed(-x, -y);
+		SetSpeed(0.35*x, y);  // diminish turning speed
 	}
 	
 	void SetLeftPower( double power )
 	{
-		lDrive1.set(-power);
-		lDriveMiddle.set(-power);
-		lDrive2.set(-power);		
+		lDrive1.set(power);
+		lDriveMiddle.set(power);
+		lDrive2.set(power);		
 	}
 	
 	void SetRightPower( double power )
 	{
-		rDrive1.set(power);
-		rDriveMiddle.set(power);
-		rDrive2.set(power);
+		rDrive1.set(-power);
+		rDriveMiddle.set(-power);
+		rDrive2.set(-power);
 	}
-	private void SetSpeed(double forward, double right){
+	private void SetSpeed(double right, double forward){
 		if (bSpeedControl)
 		{
-			leftController.setSetpoint(20.0*(forward-right));
-			rightController.setSetpoint(20.0*(forward+right));
+			leftController.setSetpoint(20.0*(forward+right));
+			rightController.setSetpoint(20.0*(forward-right));
 			
 			//leftController.setSetpoint(5);
 			//rightController.setSetpoint(5);
+			
+			//SetLeftPower( 0.25 );
+			//SetRightPower( 0.25 );
 		}
 		else
 		{
-			SetLeftPower( forward - right );
-			SetRightPower( forward + right );
+			SetLeftPower( forward + right );
+			SetRightPower( forward - right );
 		}
 		
-        SmartDashboard.putNumber("Left Encoder: ", RobotMap.leftE.getRate());
-		SmartDashboard.putNumber("Right Encoder: ", RobotMap.rightE.getRate());
+        //SmartDashboard.putNumber("Left Encoder: ", forward);
+		//SmartDashboard.putNumber("Right Encoder: ", right);
 	}
 }
