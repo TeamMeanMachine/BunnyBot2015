@@ -1,8 +1,7 @@
 package org.usfirst.frc.team2471.robot.subsystems;
 
 import org.usfirst.frc.team2471.robot.RobotMap;
-import org.usfirst.frc.team2471.robot.commands.SuckUp;
-
+import org.usfirst.frc.team2471.robot.commands.StayUp;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -16,6 +15,7 @@ public class Sucker extends Subsystem{
 	public DigitalInput ltop;
 	public DigitalInput lbottom;
 	public Solenoid fextend;
+	public boolean bUp; 
 	
 
 	public Sucker(){
@@ -25,12 +25,13 @@ public class Sucker extends Subsystem{
 		fbottom = RobotMap.fbottom;
 		ftop = RobotMap.ftop;
 		orbital = RobotMap.orbital;
+		bUp = false;
+		
 	}
 	
 	@Override
 	protected void initDefaultCommand() {
-		// TODO Auto-generated method stub
-		//setDefaultCommand(new SuckUp());
+		setDefaultCommand(new StayUp());
 	}
 	
 											
@@ -48,6 +49,7 @@ public class Sucker extends Subsystem{
 		while(ltop.get() == false){
 			orbital.set(0.415);
 		}
+		bUp=true;
 		orbital.set(0.0);
 	}
 	
@@ -56,5 +58,15 @@ public class Sucker extends Subsystem{
 			orbital.set(-0.1);
 		}
 		orbital.set(0.0);
+		bUp=false;
+	}
+	public void orbitalStayUp(){
+		if(bUp==true && ltop.get()==false){
+			orbital.set(0.415);
+		}
+		else{
+			orbital.set(0.0);
+		}
 	}
 }
+
