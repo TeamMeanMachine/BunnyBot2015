@@ -46,11 +46,11 @@ public class Robot extends IterativeRobot {
 		System.out.println("Limit Top: " + RobotMap.ltop.get());
 		System.out.println("Limit Bot: " + RobotMap.lbottom.get());*/
 		
-		SmartDashboard.putNumber("Right Encoder: ", RobotMap.rightE.get());
-        SmartDashboard.putNumber("Left Encoder: ", RobotMap.leftE.get());
+		SmartDashboard.putNumber("Right Encoder: ", RobotMap.rightE.getDistance());
+        SmartDashboard.putNumber("Left Encoder: ", RobotMap.leftE.getDistance());
         SmartDashboard.putBoolean("Limit Top: ", RobotMap.ltop.get());
         SmartDashboard.putBoolean("Limit Bot: ", RobotMap.lbottom.get());
-		
+		drive.onDisabled();
 	}
 
     public void autonomousInit() {
@@ -87,12 +87,18 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
         
-        System.out.println("Hello world");
+        //System.out.println("Hello world");
         
         /*System.out.println("Right Encoder: " + RobotMap.rightE.get());
 		System.out.println("Left Encoder: " + );
 		System.out.println("Limit Top: " + );
 		System.out.println("Limit Bot: " + RobotMap.lbottom.get());*/
+        
+		//SmartDashboard.putNumber("Right Encoder: ", RobotMap.rightE.getRate());
+        //SmartDashboard.putNumber("Left Encoder: ", RobotMap.leftE.getRate());
+        SmartDashboard.putBoolean("Limit Top: ", RobotMap.ltop.get());
+        SmartDashboard.putBoolean("Limit Bot: ", RobotMap.lbottom.get());
+
     }
     
     /**

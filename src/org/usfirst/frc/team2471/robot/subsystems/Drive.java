@@ -4,8 +4,12 @@ import org.usfirst.frc.team2471.robot.RobotMap;
 import org.usfirst.frc.team2471.robot.commands.DriveLoop;
 
 import edu.wpi.first.wpilibj.CANTalon;
+import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.PIDSource;
+import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Drive extends Subsystem{
 	
@@ -24,6 +28,53 @@ public class Drive extends Subsystem{
 	
 	public static int gearAP;
 	
+	boolean bSpeedControl = true;
+	
+	WCDLeftPIDOutput wcdLeftPIDOutput;
+	WCDRightPIDOutput wcdRightPIDOutput;
+	
+	public static PIDController leftController, rightController;
+	
+	class WCDLeftPIDSource implements PIDSource {
+		public double pidGet(){
+			return RobotMap.leftE.getRate();
+		}
+	}
+	
+	class WCDRightPIDSource implements PIDSource {
+		public double pidGet(){
+			return RobotMap.rightE.getRate();
+		}
+	}
+	
+	class WCDLeftPIDOutput implements PIDOutput {
+		public double prevPower = 0;
+		public void pidWrite(double output){
+			prevPower -= output;
+			if(prevPower >=1.0 ){
+				prevPower = 1.0;
+			}
+			else if(prevPower <= -1.0){
+				prevPower = -1.0;
+			}
+			SetLeftPower( prevPower );
+		}
+	}
+	
+	class WCDRightPIDOutput implements PIDOutput {
+		public double prevPower = 0;
+		public void pidWrite(double output){
+			prevPower -= output;
+			if(prevPower >=1.0 ){
+				prevPower = 1.0;
+			}
+			else if(prevPower <= -1.0){
+				prevPower = -1.0;
+			}
+			SetRightPower( prevPower );
+		}
+	}
+	
 	public Drive(){
 		lDrive1 = RobotMap.lDrive1;
 		lDriveMiddle = RobotMap.lDriveMiddle;
@@ -39,8 +90,25 @@ public class Drive extends Subsystem{
 		shifter = RobotMap.shifter;
 		
 		gearAP = RobotMap.gear;
+		
+		wcdLeftPIDOutput = new WCDLeftPIDOutput();
+		wcdRightPIDOutput = new WCDRightPIDOutput();
+		
+		if (bSpeedControl)
+		{
+			leftController = new PIDController( 0.05, 0.0, 0.005, new WCDLeftPIDSource(), wcdLeftPIDOutput);
+			rightController = new PIDController( 0.05, 0.0, 0.005, new WCDRightPIDSource(), wcdRightPIDOutput);
+			
+			leftController.enable();
+			rightController.enable();
+		}
 	}
 
+	public void onDisabled(){
+		wcdLeftPIDOutput.prevPower = 0;
+		wcdRightPIDOutput.prevPower = 0;
+	}
+	
 	@Override
 	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub
@@ -48,32 +116,61 @@ public class Drive extends Subsystem{
 	}
 	
 	public void driveplz(double x, double y){
-		/*if (x <= .1 && x >= -.1){
+		double deadband = 0.2;
+		if (x <= deadband && x >= -deadband){
 			x = 0;
-		}else if(y <= 0.1 && x >= -.1){
+		}
+		if(y <= deadband && y >= -deadband){
 			y = 0;
-		}*/
+		}
 		
-		if (((gearAP == 0 && x < -.5)/* || (gearAP == 0 && x < -.5)*/)){
+		double speed = Math.abs(RobotMap.leftE.getRate() + RobotMap.rightE.getRate())/2.0;
+		
+		if (gearAP == 0 && speed>8.0){  // feet per second
 			gearAP++;
 			shifter.set(true);
-		}else if((gearAP == 1 && x > -.5)/* || (gearAP == 1 && x > -.5)*/){
+		}
+		else if(gearAP == 1 && speed<7.5){
 			gearAP--;
 			shifter.set(false);
 		}
-			
-		SetSpeed(x, y);
+		
+		//RobotMap.ftop.set( RobotMap.leftE.getRate() / 240.0 );
+		
+		System.out.println("Encoder: "+ RobotMap.leftE.getRate());
+		
+		SetSpeed(-x, -y);
 	}
 	
-	private void SetSpeed(double forward, double right){
-		
-		lDrive1.set(-(forward - right));
-		lDriveMiddle.set(-(forward - right));
-		lDrive2.set(-(forward - right));
-		
-		rDrive1.set((forward + right));
-		rDriveMiddle.set((forward + right));
-		rDrive2.set((forward + right));
+	void SetLeftPower( double power )
+	{
+		lDrive1.set(-power);
+		lDriveMiddle.set(-power);
+		lDrive2.set(-power);		
 	}
-
+	
+	void SetRightPower( double power )
+	{
+		rDrive1.set(power);
+		rDriveMiddle.set(power);
+		rDrive2.set(power);
+	}
+	private void SetSpeed(double forward, double right){
+		if (bSpeedControl)
+		{
+			leftController.setSetpoint(20.0*(forward-right));
+			rightController.setSetpoint(20.0*(forward+right));
+			
+			//leftController.setSetpoint(5);
+			//rightController.setSetpoint(5);
+		}
+		else
+		{
+			SetLeftPower( forward - right );
+			SetRightPower( forward + right );
+		}
+		
+        SmartDashboard.putNumber("Left Encoder: ", RobotMap.leftE.getRate());
+		SmartDashboard.putNumber("Right Encoder: ", RobotMap.rightE.getRate());
+	}
 }
