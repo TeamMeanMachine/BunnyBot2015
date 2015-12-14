@@ -28,7 +28,7 @@ public class Drive extends Subsystem{
 	
 	public static int gearAP;
 	
-	boolean bSpeedControl = true;
+	boolean bSpeedControl = SmartDashboard.getBoolean("Speed Control", true);  // should read from prefs and save to prefs on disabled, find TMMSmartDashboard from 2015 Robot code.
 	
 	WCDLeftPIDOutput wcdLeftPIDOutput;
 	WCDRightPIDOutput wcdRightPIDOutput;
@@ -94,17 +94,12 @@ public class Drive extends Subsystem{
 		wcdLeftPIDOutput = new WCDLeftPIDOutput();
 		wcdRightPIDOutput = new WCDRightPIDOutput();
 		
-		if (bSpeedControl)
-		{
-			leftController = new PIDController( 0.04, 0.0, 0.02, new WCDLeftPIDSource(), wcdLeftPIDOutput);
-			rightController = new PIDController( 0.04, 0.0, 0.02, new WCDRightPIDSource(), wcdRightPIDOutput);
+		leftController = new PIDController( 0.04, 0.0, 0.02, new WCDLeftPIDSource(), wcdLeftPIDOutput);
+		rightController = new PIDController( 0.04, 0.0, 0.02, new WCDRightPIDSource(), wcdRightPIDOutput);
 			
-			SmartDashboard.putData("PID Left: ", leftController);
-			SmartDashboard.putData("PID Right: ", rightController);
-		
-			leftController.enable();
-			rightController.enable();
-		}
+		SmartDashboard.putData("PID Left: ", leftController);
+		SmartDashboard.putData("PID Right: ", rightController);
+		SmartDashboard.putBoolean("Speed Control", bSpeedControl);
 	}
 
 	public void onDisabled(){
@@ -162,24 +157,28 @@ public class Drive extends Subsystem{
 		rDrive2.set(-power);
 	}
 	private void SetSpeed(double right, double forward){
+		
+		bSpeedControl = SmartDashboard.getBoolean("Speed Control", true);
+
+		if (bSpeedControl)
+		{
+			leftController.enable();
+			rightController.enable();
+		}
+		else {
+			leftController.disable();
+			rightController.disable();
+		}
+
 		if (bSpeedControl)
 		{
 			leftController.setSetpoint(20.0*(forward+right));
 			rightController.setSetpoint(20.0*(forward-right));
-			
-			//leftController.setSetpoint(5);
-			//rightController.setSetpoint(5);
-			
-			//SetLeftPower( 0.25 );
-			//SetRightPower( 0.25 );
 		}
 		else
 		{
 			SetLeftPower( forward + right );
 			SetRightPower( forward - right );
 		}
-		
-        //SmartDashboard.putNumber("Left Encoder: ", forward);
-		//SmartDashboard.putNumber("Right Encoder: ", right);
 	}
 }

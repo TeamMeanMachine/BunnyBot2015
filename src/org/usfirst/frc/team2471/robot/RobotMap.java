@@ -64,7 +64,7 @@ public class RobotMap {
 		lDrive1 = new CANTalon(0); // TODO: get ids when electrical is ready
 		lDriveMiddle = new CANTalon(1);
 		lDrive2 = new CANTalon(2);
-		leftE = new Encoder(2, 3);
+		leftE = new Encoder(6, 7);
 		leftE.setDistancePerPulse(0.05/12);
 
 		rDrive1 = new CANTalon(3);
