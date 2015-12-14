@@ -25,7 +25,7 @@ public class SpitDown extends Command{
 			Robot.sucker.orbitalDown();
 		}
 		else{
-			Robot.sucker.suckup(0.5, 0.5);
+			Robot.sucker.suckup(0.2, 0.2);
 		}
 	}
 
