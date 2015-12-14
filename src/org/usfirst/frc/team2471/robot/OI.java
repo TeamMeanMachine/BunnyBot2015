@@ -67,11 +67,11 @@ public class OI {
 		bunnyRelease = new JoystickButton (coStick, 6);		
 		spitMiddleUp = new JoystickButton(coStick, 7);
 		
-		suckMe.whileHeld(new SuckUp());
-		sTop.whileHeld(new SpitUp());
-		sMid.whileHeld(new SpitUpReverse());
-		sBot.whileHeld(new SpitDown());
-		spitMiddleUp.whileHeld(new SpitMiddeUp());
+		suckMe.whenPressed(new SuckUp());
+		sTop.whenPressed(new SpitUp());
+		sMid.whenPressed(new SpitUpReverse());
+		sBot.whenPressed(new SpitDown());
+		spitMiddleUp.whenPressed(new SpitMiddeUp());
 		bunnyGrab.whenPressed(new BunnyGrab());
 		bunnyRelease.whenPressed(new BunnyRelease());
 		// example shift.whenPressed(new DriveLoop());

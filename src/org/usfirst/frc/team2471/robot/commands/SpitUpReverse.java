@@ -6,28 +6,37 @@ import org.usfirst.frc.team2471.robot.RobotMap;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class SpitUpReverse extends Command{
+	
+	boolean stateOrbital = false;
 
 	@Override
 	protected void initialize() {
 		// TODO Auto-generated method stub
+		stateOrbital = !RobotMap.ltop.get();
 		Robot.sucker.setOrbUpState(false);
 		Robot.sucker.topExtension(false);
-		Robot.sucker.orbitalUp();
 	}
 
 	@Override
 	protected void execute() {
 		// TODO Auto-generated method stub
-		Robot.sucker.suckup(0.5, 0.5);
+		if(stateOrbital){
+			Robot.sucker.orbitalUp();
+		}
+		else{
+			Robot.sucker.suckup(0.5, 0.5);
+		}
 	}
 
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
-		if (RobotMap.ltop.get() == true){
-			return true;
+		if(stateOrbital){
+			return RobotMap.ltop.get();
 		}
-		return false;
+		else{
+			return !Robot.oi.sMid.get();
+		}
 	}
 
 	@Override

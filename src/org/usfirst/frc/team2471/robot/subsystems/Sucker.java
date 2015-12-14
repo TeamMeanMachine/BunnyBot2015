@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Sucker extends Subsystem{
 	
@@ -31,7 +32,7 @@ public class Sucker extends Subsystem{
 	
 	@Override
 	protected void initDefaultCommand() {
-		//setDefaultCommand(new StayUp());
+		setDefaultCommand(new StayUp());
 	}
 	
 											
@@ -42,7 +43,7 @@ public class Sucker extends Subsystem{
 	
 	public void topExtension(boolean direction){
 		//false = in ; true = out
-		fextend.set(direction);
+		fextend.set(!direction);
 	}
 	
 	public void orbitalUp(){
@@ -64,8 +65,9 @@ public class Sucker extends Subsystem{
 	public void orbitalStayUp(){
 		if(bStayUp == true)
 		{
-			if (ltop.get() == false){
-				//orbital.set(0.415);
+			if (ltop.get() == false && RobotMap.pdp.getCurrent(5) <= 12){
+				orbital.set(0.415);
+				/*SmartDashboard.putNumber("Voltage Output ", RobotMap.pdp.getCurrent(8));*/
 			}
 			else{
 				orbital.set(0.0);

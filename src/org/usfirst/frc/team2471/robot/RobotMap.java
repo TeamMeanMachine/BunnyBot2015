@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Solenoid;
 
 /**
@@ -22,6 +23,10 @@ public class RobotMap {
 	// number and the module. For example you with a rangefinder:
 	// public static int rangefinderPort = 1;
 	// public static int rangefinderModule = 1;
+	
+	/* ------------------------- Robot __________________________________*/
+	
+	public static PowerDistributionPanel pdp;
 
 	/* -------------------- Drive Train -------------------------------- */
 	public static CANTalon lDrive1;
@@ -84,5 +89,7 @@ public class RobotMap {
 		lbottom = new DigitalInput(5);
 
 		bunnyGrabber = new Solenoid(1);
+		
+		pdp = new PowerDistributionPanel();
 	}
 }

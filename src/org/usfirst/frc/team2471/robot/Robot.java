@@ -98,6 +98,8 @@ public class Robot extends IterativeRobot {
         //SmartDashboard.putNumber("Left Encoder: ", RobotMap.leftE.getRate());
         SmartDashboard.putBoolean("Limit Top: ", RobotMap.ltop.get());
         SmartDashboard.putBoolean("Limit Bot: ", RobotMap.lbottom.get());
+        SmartDashboard.putNumber("Voltage Output ", RobotMap.pdp.getCurrent(5));
+        
 
     }
     
