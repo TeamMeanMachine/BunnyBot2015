@@ -47,7 +47,9 @@ public class Sucker extends Subsystem{
 	}
 	
 	public void orbitalUp(){
-		orbital.set(0.415);
+		if((RobotMap.pdp.getCurrent(5) <= 12)){
+			orbital.set(0.60);
+		}
 		/*bUp=true;*/
 	}
 	
@@ -59,7 +61,10 @@ public class Sucker extends Subsystem{
 	}
 	
 	public void orbitalDown(){
-		orbital.set(-0.1);
+		if((RobotMap.pdp.getCurrent(5) <= 12)){
+			orbital.set(-0.1);
+		}
+		
 		/*bUp=false;*/
 	}
 	public void orbitalStayUp(){
