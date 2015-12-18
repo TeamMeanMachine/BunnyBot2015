@@ -6,9 +6,9 @@ import org.usfirst.frc.team2471.robot.subsystems.Sucker;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class OrbitalDown extends Command{
+public class OrbitalUp extends Command{
 	
-	public OrbitalDown(){
+	public OrbitalUp(){
 		requires(Robot.sucker);
 	}
 
@@ -18,18 +18,18 @@ public class OrbitalDown extends Command{
 
 	@Override
 	protected void execute() {
-		Robot.sucker.orbitalDown();
+		Robot.sucker.orbitalUp();
 	}
 
 	@Override
 	protected boolean isFinished() {
-		return RobotMap.lbottom.get();
+		return RobotMap.ltop.get();
 	}
 
 	@Override
 	protected void end() {
 		Robot.sucker.orbitalOff();
-		Robot.sucker.setOrbUpState(false);
+		Robot.sucker.setOrbUpState(true);
 	}
 
 	@Override
