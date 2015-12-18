@@ -20,7 +20,7 @@ public class BunnyRelease extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	RobotMap.bunnyGrabber.set(false);    	
+    	RobotMap.bunnyGrabber.set(true);    	
     }
 
     // Make this return true when this Command no longer needs to run execute()
