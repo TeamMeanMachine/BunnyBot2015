@@ -28,6 +28,9 @@ public class DriveLoop extends Command{
 		double x = Robot.oi.driverStick.getRawAxis(2);
 		double y = Robot.oi.driverStick.getRawAxis(1);
 		
+		x = x * x * x;
+		y = y * y * y;
+		
 		Robot.drive.driveplz(x, y);
 	}
 	
