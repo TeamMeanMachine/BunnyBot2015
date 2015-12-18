@@ -2,6 +2,7 @@
 package org.usfirst.frc.team2471.robot;
 
 
+import org.usfirst.frc.team2471.robot.commands.BunnyBotAuto;
 import org.usfirst.frc.team2471.robot.subsystems.Drive;
 import org.usfirst.frc.team2471.robot.subsystems.Sucker;
 
@@ -36,6 +37,8 @@ public class Robot extends IterativeRobot {
 		sucker = new Sucker();
 		oi = new OI();
         // instantiate the command used for the autonomous period
+		autonomousCommand = new BunnyBotAuto();
+		//autonomousCommand = new DoNothing();
     }
 	
 	public void disabledPeriodic() {
@@ -71,6 +74,8 @@ public class Robot extends IterativeRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
         if (autonomousCommand != null) autonomousCommand.cancel();
+        RobotMap.fextend.set(true);
+        
     }
 
     /**
@@ -78,7 +83,7 @@ public class Robot extends IterativeRobot {
      * You can use it to reset subsystems before shutting down.
      */
     public void disabledInit(){
-
+    	
     }
 
     /**
