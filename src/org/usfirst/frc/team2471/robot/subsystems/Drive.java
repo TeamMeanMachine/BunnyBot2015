@@ -33,7 +33,7 @@ public class Drive extends Subsystem{
 	WCDLeftPIDOutput wcdLeftPIDOutput;
 	WCDRightPIDOutput wcdRightPIDOutput;
 	
-	public static PIDController leftController, rightController;
+	public PIDController leftController, rightController;
 	
 	class WCDLeftPIDSource implements PIDSource {
 		public double pidGet(){
@@ -94,8 +94,8 @@ public class Drive extends Subsystem{
 		wcdLeftPIDOutput = new WCDLeftPIDOutput();
 		wcdRightPIDOutput = new WCDRightPIDOutput();
 		
-		leftController = new PIDController( 0.04, 0.0, 0.02, new WCDLeftPIDSource(), wcdLeftPIDOutput);
-		rightController = new PIDController( 0.04, 0.0, 0.02, new WCDRightPIDSource(), wcdRightPIDOutput);
+		leftController = new PIDController( 0.01, 0.0, 0.03, new WCDLeftPIDSource(), wcdLeftPIDOutput);
+		rightController = new PIDController( 0.01, 0.0, 0.03, new WCDRightPIDSource(), wcdRightPIDOutput);
 			
 		SmartDashboard.putData("PID Left: ", leftController);
 		SmartDashboard.putData("PID Right: ", rightController);
@@ -114,8 +114,8 @@ public class Drive extends Subsystem{
 	}
 	
 	public void driveplz(double x, double y){
-		SmartDashboard.putNumber("Left Encoder: ", x);
-		SmartDashboard.putNumber("Right Encoder: ", y);
+		SmartDashboard.putNumber("Left Encoder: ", RobotMap.leftE.getRate());
+		SmartDashboard.putNumber("Right Encoder: ", RobotMap.rightE.getRate());
 		
 		double deadband = 0.05;
 		if (x <= deadband && x >= -deadband){
@@ -140,7 +140,10 @@ public class Drive extends Subsystem{
 		
 		System.out.println("Encoder: "+ RobotMap.leftE.getRate());
 		
-		SetSpeed(0.35*x, y);  // diminish turning speed
+		if (gearAP == 0)
+			SetSpeed(0.75*x, y);  // diminish turning speed
+		else
+			SetSpeed(1*x, y);  // diminish turning speed
 	}
 	
 	void SetLeftPower( double power )
@@ -172,8 +175,15 @@ public class Drive extends Subsystem{
 
 		if (bSpeedControl)
 		{
-			leftController.setSetpoint(20.0*(forward+right));
-			rightController.setSetpoint(20.0*(forward-right));
+			double a = forward + right;
+			double b = forward - right;
+			double maxPower = Math.max( Math.abs(a) , Math.abs(b) );
+			if (maxPower > 1.0){
+				a /= maxPower;
+				b /= maxPower;
+			}
+			leftController.setSetpoint( 20.0 * a);
+			rightController.setSetpoint( 20.0 * b );
 		}
 		else
 		{
