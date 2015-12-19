@@ -32,6 +32,7 @@ public class Drive extends Subsystem{
 	
 	WCDLeftPIDOutput wcdLeftPIDOutput;
 	WCDRightPIDOutput wcdRightPIDOutput;
+	public double requestedPowerLeft, requestedPowerRight;
 	
 	public PIDController leftController, rightController;
 	
@@ -48,30 +49,32 @@ public class Drive extends Subsystem{
 	}
 	
 	class WCDLeftPIDOutput implements PIDOutput {
-		public double prevPower = 0;
+		public double prevScale = 1.0;
 		public void pidWrite(double output){
-			prevPower += output;
-			if(prevPower >=1.0 ){
-				prevPower = 1.0;
+			output *= Math.signum( requestedPowerLeft );
+			prevScale += output;
+			if(prevScale >=10.0 ){
+				prevScale = 10.0;
 			}
-			else if(prevPower <= -1.0){
-				prevPower = -1.0;
+			else if(prevScale <= 0.01){
+				prevScale = 0.01;
 			}
-			SetLeftPower( prevPower );
+			SetLeftPower( prevScale * requestedPowerLeft );
 		}
 	}
 	
 	class WCDRightPIDOutput implements PIDOutput {
-		public double prevPower = 0;
+		public double prevScale = 1.0;
 		public void pidWrite(double output){
-			prevPower += output;
-			if(prevPower >=1.0 ){
-				prevPower = 1.0;
+			output *= Math.signum( requestedPowerRight );
+			prevScale += output;
+			if(prevScale >=10.0 ){
+				prevScale = 10.0;
 			}
-			else if(prevPower <= -1.0){
-				prevPower = -1.0;
+			else if(prevScale <= 0.01){
+				prevScale = 0.01;
 			}
-			SetRightPower( prevPower );
+			SetRightPower( prevScale * requestedPowerRight );
 		}
 	}
 	
@@ -103,8 +106,8 @@ public class Drive extends Subsystem{
 	}
 
 	public void onDisabled(){
-		wcdLeftPIDOutput.prevPower = 0;
-		wcdRightPIDOutput.prevPower = 0;
+		wcdLeftPIDOutput.prevScale = 1.0;
+		wcdRightPIDOutput.prevScale = 1.0;
 	}
 	
 	@Override
@@ -182,7 +185,17 @@ public class Drive extends Subsystem{
 				a /= maxPower;
 				b /= maxPower;
 			}
-			leftController.setSetpoint( 20.0 * a);
+			
+			if (a==0) {
+				wcdLeftPIDOutput.prevScale = 1.0;
+			}
+			if (b==0) {
+				wcdRightPIDOutput.prevScale = 1.0;
+			}
+			
+			requestedPowerLeft = a;
+			requestedPowerRight = b;
+			leftController.setSetpoint( 20.0 * a );
 			rightController.setSetpoint( 20.0 * b );
 		}
 		else
