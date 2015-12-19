@@ -65,15 +65,15 @@ public class RobotMap {
 		lDriveMiddle = new CANTalon(1);
 		lDrive2 = new CANTalon(2);
 		leftE = new Encoder(6, 7);
-		leftE.setDistancePerPulse(0.05/12);
+		leftE.setDistancePerPulse(0.05/12);  // ( Math.PI * 3.0 / 200.0 / 12.0 )  // diameter, ticks per rev, inches per foot
 
 		rDrive1 = new CANTalon(3);
 		rDriveMiddle = new CANTalon(4);
 		rDrive2 = new CANTalon(5);
 		rightE = new Encoder(0, 1);
-		rightE.setDistancePerPulse(-0.05/12);
+		rightE.setDistancePerPulse(-0.05/12);  // ( -Math.PI * 3.0 / 200.0 / 12.0 )  // diameter, ticks per rev, inches per foot
 		shifter = new Solenoid(0);
-
+		
 		gear = 0;
 
 		// Intake/Outtake
