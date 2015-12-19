@@ -67,8 +67,8 @@ public class Robot extends IterativeRobot {
 		System.out.println("Limit Top: " + RobotMap.ltop.get());
 		System.out.println("Limit Bot: " + RobotMap.lbottom.get());*/
 		
-		SmartDashboard.putNumber("Right Encoder: ", RobotMap.rightE.getDistance());
-        SmartDashboard.putNumber("Left Encoder: ", RobotMap.leftE.getDistance());
+		//SmartDashboard.putNumber("Right Encoder: ", RobotMap.rightE.getDistance());
+        //SmartDashboard.putNumber("Left Encoder: ", RobotMap.leftE.getDistance());
         SmartDashboard.putBoolean("Limit Top: ", RobotMap.ltop.get());
         SmartDashboard.putBoolean("Limit Bot: ", RobotMap.lbottom.get());
 		drive.onDisabled();
