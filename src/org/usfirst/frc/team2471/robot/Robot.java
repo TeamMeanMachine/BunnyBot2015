@@ -2,7 +2,11 @@
 package org.usfirst.frc.team2471.robot;
 
 
+import org.usfirst.frc.team2471.robot.commands.AutoDoNothing;
 import org.usfirst.frc.team2471.robot.commands.BunnyBotAuto;
+import org.usfirst.frc.team2471.robot.commands.BunnyBotAutoLeft;
+import org.usfirst.frc.team2471.robot.commands.BunnyBotAutoRight;
+import org.usfirst.frc.team2471.robot.commands.RotateCommand;
 import org.usfirst.frc.team2471.robot.subsystems.Drive;
 import org.usfirst.frc.team2471.robot.subsystems.Sucker;
 
@@ -10,6 +14,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -25,6 +30,8 @@ public class Robot extends IterativeRobot {
 	public static Drive drive;
 	public static Sucker sucker;
 
+	public static SendableChooser autoChooser;
+
     Command autonomousCommand;
 
     /**
@@ -37,6 +44,17 @@ public class Robot extends IterativeRobot {
 		sucker = new Sucker();
 		oi = new OI();
         // instantiate the command used for the autonomous period
+		autoChooser = new SendableChooser();
+        //autoChooser.addDefault("3 Tote Pick Up ", new AutoThreeTote());
+        autoChooser.addObject("Nothing", new AutoDoNothing());
+        autoChooser.addDefault("Drive Straight", new BunnyBotAuto());
+        autoChooser.addObject("Left", new BunnyBotAutoLeft());
+        autoChooser.addObject("Right", new BunnyBotAutoRight());
+        autoChooser.addObject("Turn Only", new RotateCommand(180, 3));
+        
+//        autoChooser.addObject("Name", new Command());
+		
+        SmartDashboard.putData("AutoChooser", autoChooser);
 		autonomousCommand = new BunnyBotAuto();
 		//autonomousCommand = new DoNothing();
     }
@@ -58,6 +76,8 @@ public class Robot extends IterativeRobot {
 
     public void autonomousInit() {
         // schedule the autonomous command (example)
+
+		autonomousCommand = (Command)autoChooser.getSelected();
         if (autonomousCommand != null) autonomousCommand.start();
     }
 
@@ -83,7 +103,7 @@ public class Robot extends IterativeRobot {
      * You can use it to reset subsystems before shutting down.
      */
     public void disabledInit(){
-    	
+    	RobotMap.bunnyGrabber.set(false);
     }
 
     /**
