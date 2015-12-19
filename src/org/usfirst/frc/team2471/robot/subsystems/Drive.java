@@ -162,7 +162,7 @@ public class Drive extends Subsystem{
 		rDriveMiddle.set(-power);
 		rDrive2.set(-power);
 	}
-	private void SetSpeed(double right, double forward){
+	public void SetSpeed(double right, double forward){
 		
 		bSpeedControl = SmartDashboard.getBoolean("Speed Control", true);
 

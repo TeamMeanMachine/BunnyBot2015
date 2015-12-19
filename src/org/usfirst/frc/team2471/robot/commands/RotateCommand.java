@@ -15,12 +15,12 @@ public class RotateCommand extends Command {
     double startLeft, startRight;
     double speed;
     
-    public RotateCommand(double angle, double _speed) {
+    public RotateCommand(double angle, double speedZeroToOne ) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
         requires(Robot.drive);
         distance = angle/360.0*27.0/12.0*Math.PI;
-        speed = _speed;
+        speed = speedZeroToOne;
     }
 
     // Called just before this Command runs the first time
@@ -33,8 +33,9 @@ public class RotateCommand extends Command {
         	startLeft = RobotMap.leftE.getDistance();
         	startRight = RobotMap.rightE.getDistance();
             started = true;
-            Robot.drive.leftController.setSetpoint(-Math.signum(distance) * speed);
-    		Robot.drive.rightController.setSetpoint(Math.signum(distance) * speed);
+            Robot.drive.SetSpeed( 0, speed );
+//			Robot.drive.leftController.setSetpoint(-Math.signum(distance) * speed);
+//    		Robot.drive.rightController.setSetpoint(Math.signum(distance) * speed);
         }
     }
 
@@ -46,6 +47,8 @@ public class RotateCommand extends Command {
     	if (Math.abs(startRight - RobotMap.rightE.getDistance())> distance){
     		return true;
     	}
+    	if (isTimedOut())
+    		return true;
 
         return false;
     }
@@ -53,8 +56,9 @@ public class RotateCommand extends Command {
     // Called once after isFinished returns true
     protected void end() {
         started = false;
-        Robot.drive.leftController.setSetpoint(0);
-		Robot.drive.rightController.setSetpoint(0);
+        Robot.drive.SetSpeed( 0, 0 );
+//		Robot.drive.leftController.setSetpoint(0);
+//		Robot.drive.rightController.setSetpoint(0);
     }
 
     // Called when another command which requires one or more of the same

@@ -7,6 +7,7 @@ import org.usfirst.frc.team2471.robot.commands.BunnyBotAuto;
 import org.usfirst.frc.team2471.robot.commands.BunnyBotAutoLeft;
 import org.usfirst.frc.team2471.robot.commands.BunnyBotAutoRight;
 import org.usfirst.frc.team2471.robot.commands.RotateCommand;
+import org.usfirst.frc.team2471.robot.commands.Spin180Auto;
 import org.usfirst.frc.team2471.robot.subsystems.Drive;
 import org.usfirst.frc.team2471.robot.subsystems.Sucker;
 
@@ -50,7 +51,8 @@ public class Robot extends IterativeRobot {
         autoChooser.addDefault("Drive Straight", new BunnyBotAuto());
         autoChooser.addObject("Left", new BunnyBotAutoLeft());
         autoChooser.addObject("Right", new BunnyBotAutoRight());
-        autoChooser.addObject("Turn Only", new RotateCommand(180, 3));
+        autoChooser.addObject("Turn Only", new RotateCommand(180, 0.3));
+        autoChooser.addObject("Spin 180", new Spin180Auto());
         
 //        autoChooser.addObject("Name", new Command());
 		

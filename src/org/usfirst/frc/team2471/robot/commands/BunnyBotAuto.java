@@ -25,13 +25,16 @@ public class BunnyBotAuto extends CommandGroup {
 		// e.g. if Command1 requires chassis, and Command2 requires arm,
 		// a CommandGroup containing them would require both the chassis and the
 		// arm.
-		addParallel(new BunnyRelease());	addSequential(new OrbitalDown());
+		addParallel(new BunnyRelease());
+		addSequential(new OrbitalDown());
 		
-		addParallel(new SuckUpOnly(), 0.6);	addSequential(new DriveDistanceCommand(1.5, 0.0, 0.3)); // forward 2 foot
+		addParallel(new SuckUpOnly(), 0.6);
+		addSequential(new DriveDistanceCommand(1.5, 0.0, 0.3)); // forward 2 foot
 
-		addParallel(new OrbitalUp());		addSequential(new BunnyGrab());
+		addParallel(new OrbitalUp());
+		addSequential(new BunnyGrab());
 
 		addSequential(new DriveDistanceCommand(30.0, 0.0, 0.3), 10.0); // forward 30 feet
-		addSequential(new RotateCommand(180.0, 4.0));
+		addSequential(new RotateCommand(180.0, 0.3));
 	}
 }

@@ -35,11 +35,11 @@ public class BunnyBotAutoLeft extends CommandGroup {
 		addSequential(new BunnyGrab());
 
 		addSequential(new DriveDistanceCommand(15.0, 0.0, 0.3), 5.0); // forward 15 feet
-		addSequential(new RotateCommand(-45.0, 3.0), 2.0);
+		addSequential(new RotateCommand(-45.0, 0.3), 2.0);
 		addSequential(new DriveDistanceCommand(5.0, 0.0, 0.3), 3.0); // right 5 feet
-		addSequential(new RotateCommand(45.0, 3.0), 2.0);
+		addSequential(new RotateCommand(45.0, 0.3), 2.0);
 		addSequential(new DriveDistanceCommand(15.0, 0.0, 0.3), 5.0); // forward 15 feet
 		
-		addSequential(new RotateCommand(180.0, 4.0));
+		addSequential(new RotateCommand(180.0, 0.3));
 	}
 }
