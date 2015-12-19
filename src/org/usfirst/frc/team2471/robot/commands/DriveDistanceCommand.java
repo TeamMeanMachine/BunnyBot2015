@@ -42,7 +42,7 @@ public class DriveDistanceCommand extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	return (((Math.abs(RobotMap.leftE.getDistance()) + Math.abs(RobotMap.rightE.getDistance()))/2) - startDistance > distance) || isTimedOut();
+    	return (Math.abs(RobotMap.leftE.getDistance()) + Math.abs(RobotMap.rightE.getDistance()))/2.0 - startDistance > distance || isTimedOut();
     }
 
     // Called once after isFinished returns true
