@@ -34,7 +34,7 @@ public class BunnyBotAuto extends CommandGroup {
 		addParallel(new OrbitalUp());
 		addSequential(new BunnyGrab());
 
-		addSequential(new DriveDistanceCommand(30.0, 0.0, 0.3), 10.0); // forward 30 feet
-		addSequential(new RotateCommand(180.0, 0.3));
+		addSequential(new DriveDistanceCommand(33.0, 0.0, 0.3), 10.0); // forward 30 feet
+		addSequential(new RotateCommand(200.0, 0.3));
 	}
 }

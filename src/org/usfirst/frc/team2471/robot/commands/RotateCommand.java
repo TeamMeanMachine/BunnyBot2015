@@ -33,7 +33,7 @@ public class RotateCommand extends Command {
         	startLeft = RobotMap.leftE.getDistance();
         	startRight = RobotMap.rightE.getDistance();
             started = true;
-            Robot.drive.SetSpeed( 0, speed );
+            Robot.drive.SetSpeed( speed, 0 );
 //			Robot.drive.leftController.setSetpoint(-Math.signum(distance) * speed);
 //    		Robot.drive.rightController.setSetpoint(Math.signum(distance) * speed);
         }
