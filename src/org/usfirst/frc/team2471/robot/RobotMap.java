@@ -26,6 +26,8 @@ public class RobotMap {
 	
 	/* ------------------------- Robot __________________________________*/
 	
+	// 2016 testing CIMs port 0 and 1
+	
 	public static PowerDistributionPanel pdp;
 
 	/* -------------------- Drive Train -------------------------------- */
@@ -55,6 +57,8 @@ public class RobotMap {
 
 	public static DigitalInput ltop;
 	public static DigitalInput lbottom;
+	
+	public static AnalogInput sensorTest;
 
 	public static Solenoid bunnyGrabber;
 
@@ -91,5 +95,7 @@ public class RobotMap {
 		bunnyGrabber = new Solenoid(1);
 		
 		pdp = new PowerDistributionPanel();
+		
+		sensorTest = new AnalogInput(0);
 	}
 }

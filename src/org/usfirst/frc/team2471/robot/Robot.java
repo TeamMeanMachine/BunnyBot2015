@@ -73,6 +73,7 @@ public class Robot extends IterativeRobot {
         //SmartDashboard.putNumber("Left Encoder: ", RobotMap.leftE.getDistance());
         SmartDashboard.putBoolean("Limit Top: ", RobotMap.ltop.get());
         SmartDashboard.putBoolean("Limit Bot: ", RobotMap.lbottom.get());
+        SmartDashboard.putNumber("Sensor : ", RobotMap.sensorTest.getValue());
 		drive.onDisabled();
 	}
 

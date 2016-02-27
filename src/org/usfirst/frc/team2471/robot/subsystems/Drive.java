@@ -6,6 +6,7 @@ import org.usfirst.frc.team2471.robot.commands.DriveLoop;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDSource;
+import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -40,11 +41,35 @@ public class Drive extends Subsystem{
 		public double pidGet(){
 			return RobotMap.leftE.getRate();
 		}
+
+		@Override
+		public void setPIDSourceType(PIDSourceType pidSource) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public PIDSourceType getPIDSourceType() {
+			// TODO Auto-generated method stub
+			return null;
+		}
 	}
 	
 	class WCDRightPIDSource implements PIDSource {
 		public double pidGet(){
 			return RobotMap.rightE.getRate();
+		}
+
+		@Override
+		public void setPIDSourceType(PIDSourceType pidSource) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public PIDSourceType getPIDSourceType() {
+			// TODO Auto-generated method stub
+			return null;
 		}
 	}
 	
@@ -128,8 +153,8 @@ public class Drive extends Subsystem{
 			y = 0;
 		}
 		
-		double speed = Math.abs(RobotMap.leftE.getRate() + RobotMap.rightE.getRate())/2.0;
-		
+//		double speed = Math.abs(RobotMap.leftE.getRate() + RobotMap.rightE.getRate())/2.0; // Commenting out because this is unused
+/*		
 		if (gearAP == 0 && speed>8.0){  // feet per second
 			gearAP++;
 			shifter.set(true);
@@ -138,7 +163,7 @@ public class Drive extends Subsystem{
 			gearAP--;
 			shifter.set(false);
 		}
-		
+*/		
 		//RobotMap.ftop.set( RobotMap.leftE.getRate() / 240.0 );
 		
 		System.out.println("Encoder: "+ RobotMap.leftE.getRate());
@@ -147,6 +172,11 @@ public class Drive extends Subsystem{
 			SetSpeed(0.75*x, y);  // diminish turning speed
 		else
 			SetSpeed(1*x, y);  // diminish turning speed
+	}
+	
+	public void drivetestplz(double x, double y){
+		lDrive1.set(x);
+		lDriveMiddle.set(y);
 	}
 	
 	void SetLeftPower( double power )

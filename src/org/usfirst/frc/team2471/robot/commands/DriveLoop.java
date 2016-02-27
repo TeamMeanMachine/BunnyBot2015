@@ -1,13 +1,8 @@
 package org.usfirst.frc.team2471.robot.commands;
 
-import java.awt.print.Book;
-
 import org.usfirst.frc.team2471.robot.Robot;
-import org.usfirst.frc.team2471.robot.RobotMap;
-
-import edu.wpi.first.wpilibj.CANTalon;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveLoop extends Command{
 	
@@ -25,13 +20,19 @@ public class DriveLoop extends Command{
 	@Override
 	protected void execute() {
 		// TODO Auto-generated method stub
-		double x = Robot.oi.driverStick.getRawAxis(2);
-		double y = Robot.oi.driverStick.getRawAxis(1);
+		//double x = Robot.oi.driverStick.getRawAxis(2);
+		//double y = Robot.oi.driverStick.getRawAxis(1);
 		
-		x = x * x * x;
-		y = y * y * y;
+		//2016 test debug
+		/*double x = Robot.oi.driverStick.getRawAxis(1);
+		double y = Robot.oi.driverStick.getRawAxis(3);*/
 		
-		Robot.drive.driveplz(x, y);
+		//x = x * x * x;
+		//y = y * y * y;
+		
+		//Robot.drive.driveplz(x, y);
+
+		Robot.drive.drivetestplz(SmartDashboard.getNumber("Top"), SmartDashboard.getNumber("Bottom"));
 	}
 	
 	@Override
